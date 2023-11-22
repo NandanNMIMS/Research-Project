@@ -59,6 +59,7 @@
   
   .left-sidebar-logo {
     height: 80.75px;
+   
   }
   
   .left-sidebar-logo img {
@@ -66,6 +67,7 @@
     display: block;
     padding: 10px 0px 10px 0px;
     width: 180px;
+    
   }
   
   .offset-list {
@@ -158,6 +160,7 @@
   @media (max-width: 1200px) {
     .left-sidebar {
       transform: translateX(-100%);
+      
     }
   
     .left-sidebar-open {

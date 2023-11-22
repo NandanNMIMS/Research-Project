@@ -8,7 +8,6 @@
     bottom: 5px;
     /* left: calc(50% - 300px); */
     right: 10px;
-    z-index: 10000;
     border-radius: 5px;
     padding: 1em;
     display: flex;
@@ -75,3 +74,27 @@ color: white;
     height: 30px;
     width: 50px;
 }
+body{
+    background: #f7f7f7;
+}
+
+/* .Custom table for css */
+.custom-table{
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+.custom-table th, .custom-table td{
+    padding: 8px;
+}
+.custom-table th, .custom-table td{
+    white-space: nowrap;
+}
+
+#close{
+    cursor: pointer;
+    color: red;
+}
+
+

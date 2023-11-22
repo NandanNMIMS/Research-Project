@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+    <link rel="stylesheet" href="/vf/simpleAlert.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+    <link rel="stylesheet" href="/vf/login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <title>Register</title>
+    <link rel="icon" type="image/x-icon" href="/vf/images.jpg">
+
+</head>
+<style>
+       .comments {
+            margin-top: 5%;
+            margin-left: 20px;
+        }
+
+        .darker {
+            border: 1px solid #ecb21f;
+            float: right;
+            border-radius: 5px;
+            min-width: 80%;
+            padding-left: 40px;
+            padding-right: 30px;
+            padding-top: 10px;
+        }
+
+        .comment {
+            border: 1px solid rgba(16, 46, 46, 1);
+            float: left;
+            border-radius: 5px;
+            padding-left: 40px;
+            padding-right: 30px;
+            padding-top: 10px;
+
+        }
+
+        .comment h6,
+        .comment span,
+        .darker h6,
+        .darker span {
+            display: inline;
+        }
+
+        .counter-head {
+            font-size: 50px;
+            font-weight: bold;
+            position: relative;
+            color: #9b0404;
+            text-align: center;
+            display: inline-block;
+        }
+
+</style>
+
+<body>
+
+    <style>
+    .active-sidebar {
+        background-color: #dceffc;
+        /* transform: scale(1.1); */
+    }
+
+    .offset-list-item-link:has(>.active-sidebar) {
+        transform: translateY(0%) translateZ(0) scale(2);
+        font-weight: 600;
+    }
+</style>
+<aside class="left-sidebar">
+  <div class="left-sidebar-logo">
+    <a href="/vf/dashboard">
+      <img
+        src="/vf/image/logo-nmims.png"
+        class="nmims-logo"
+      />
+    </a>
+  </div>
+
+  <ul
+    class="offset-list offcanvas-body p-0 sidebar-body"
+    id="left-sidebar-accordion"
+  ></ul>
+</aside>
+<script src="/vf/js/jquery.min.js"></script>
+
+<script>
+  let list = ``;
+
+  if ("ROLE_ADMIN" == "ROLE_ADMIN") {
+ 
+    list += `
+        <a href="/vf/dashboard" class="offset-list-item-link">
+            <li><img src="/vf/icons/speedometer.png" class="ps-3 pe-2"> Dashboard</li>
+        </a>
+        <a href="/vf/visiting-faculty-applications" id="resume-call" class="offset-list-item-link">
+            <li><img src="/vf/icons/programs.png" class="ps-3 pe-2"> Resume</li>
+        </a>
+        <a href="/vf/view-applications" class="offset-list-item-link">
+            <li><img src="/vf/icons/application.png" height="24" class="ps-3 pe-2"> Applications</li>
+        </a>
+        <a href="/vf/proforma" class="offset-list-item-link">
+            <li><img src="/vf/icons/pending_report.png" height="24" class="ps-3 pe-2"> Proforma For Approval</li>
+        </a>
+        <a href="/vf/proforma-report" class="offset-list-item-link">
+            <li><img src="/vf/icons/sidebar-icon.png" height="24" class="ps-3 pe-2"> Proforma Report</li>
+        </a>
+        <a href="/vf/faculty-reg" class="offset-list-item-link">
+            <li><img src="/vf/icons/admin.png" class="ps-3 pe-2"> Add Faculty</li>
+        </a>
+        <a href="/vf/created-offer-letter-admin" class="offset-list-item-link">
+            <li><img src="/vf/icons/offerLetter.png" height="24" class="ps-3 pe-2">Generated Offer Letter</li>
+        </a>
+        <a href="/vf/blacklisted-user" class="offset-list-item-link">
+            <li><img src="/vf/icons/blacklist.png" height="24" class="ps-3 pe-2"> Blacklist</li>
+        </a>
+        <a href="/vf/analytics" class="offset-list-item-link">
+            <li><img src="/vf/icons/analytics.png" height="24" class="ps-3 pe-2"> Analytics</li>
+        </a>
+        <a href="/vf/change-password" class="offset-list-item-link">
+            <li><img src="/vf/icons/password-icon.png" height="24" class="ps-3 pe-2">Change Password</li>
+        </a>
+        <a href="/vf/logout" class="offset-list-item-link">
+            <li><img src="/vf/icons/logout.png" class="ps-3 pe-2"> Logout</li>
+        </a>`;
+  } else if ("ROLE_ADMIN" == "User") {
+   
+    list += `
+        <a href="/vf/dashboard" class="offset-list-item-link">
+            <li><img src="/vf/icons/speedometer.png" class="ps-3 pe-2"> Dashboard</li>
+        </a>
+        <a id="resume-call" class=" offset-list-item-link faculty-view-resume-icon" style="cursor: pointer;">
+            <li><img src="/vf/icons/programs.png" class="ps-3 pe-2"> Resume</li>
+        </a>
+        <a href="/vf/faculty-application-view" class="offset-list-item-link">
+            <li><img src="/vf/icons/report.png" height="24"  class="ps-3 pe-2"> Application</li>
+        </a>
+        <a href="/vf/offer-accept-reject" class="offset-list-item-link">
+            <li><img src="/vf/icons/offerLetter.png" height="24"  class="ps-3 pe-2"> Offer Letter</li>
+        </a>
+        <a href="/vf/change-password" class="offset-list-item-link">
+            <li><img src="/vf/icons/password-icon.png" height="24" class="ps-3 pe-2">Change Password</li>
+        </a>
+        <a href="/vf/logout" class="offset-list-item-link">
+            <li><img src="/vf/icons/logout.png" class="ps-3 pe-2"> Logout</li>
+        </a>`;
+  } else if ("ROLE_ADMIN" == "ROLE_DEAN" || "ROLE_ADMIN" == "ROLE_DIRECTOR") {
+    list += `
+        <a href="/vf/dashboard" class="offset-list-item-link">
+            <li><img src="/vf/icons/speedometer.png" class="ps-3 pe-2"> Dashboard</li>
+        </a>
+        <a href="/vf/visiting-faculty-applications" id="resume-call" class="offset-list-item-link">
+            <li><img src="/vf/icons/programs.png" class="ps-3 pe-2"> Resume</li>
+        </a>
+        <a href="/vf/proforma" class="offset-list-item-link">
+            <li><img src="/vf/icons/pending_report.png" height="24" class="ps-3 pe-2"> Proforma For Approval</li>
+        </a>
+        <a href="/vf/proforma-report" class="offset-list-item-link">
+            <li><img src="/vf/icons/sidebar-icon.png" height="24" class="ps-3 pe-2"> Proforma Report</li>
+        </a>
+        <a href="/vf/analytics" class="offset-list-item-link">
+            <li><img src="/vf/icons/analytics.png" height="24" class="ps-3 pe-2"> Analytics</li>
+        </a>
+        <a href="/vf/blacklisted-user" class="offset-list-item-link">
+            <li><img src="/vf/icons/blacklist.png" height="24" class="ps-3 pe-2"> Blacklist</li>
+        </a>
+        <a href="/vf/discotinue-faculty" class="offset-list-item-link">
+            <li><img src="/vf/icons/report (2).png" height="24" class="ps-3 pe-2"> Discontinue</li>
+        </a>
+        <a href="/vf/change-password" class="offset-list-item-link">
+            <li><img src="/vf/icons/password-icon.png" height="24" class="ps-3 pe-2">Change Password</li>
+        </a>
+        <a href="/vf/logout" class="offset-list-item-link">
+            <li><img src="/vf/icons/logout.png" class="ps-3 pe-2"> Logout</li>
+        </a>`;
+  } else if ("ROLE_ADMIN" == "ROLE_CENTRAL") {
+    list += `
+        <a href="/vf/dashboard" class="offset-list-item-link">
+            <li><img src="/vf/icons/speedometer.png" class="ps-3 pe-2"> Dashboard</li>
+        </a>
+        <a href="/vf/visiting-faculty-applications" id="resume-call" class="offset-list-item-link">
+            <li><img src="/vf/icons/programs.png" class="ps-3 pe-2"> Resume</li>
+        </a>
+        <a href="/vf/proforma" class="offset-list-item-link">
+            <li><img src="/vf/icons/pending_report.png" height="24" class="ps-3 pe-2"> Proforma For Approval</li>
+        </a>
+        <a href="/vf/proforma-report" class="offset-list-item-link">
+            <li><img src="/vf/icons/sidebar-icon.png" height="24" class="ps-3 pe-2"> Proforma Report</li>
+        </a>
+        <a href="/vf/analytics" class="offset-list-item-link">
+            <li><img src="/vf/icons/analytics.png" height="24" class="ps-3 pe-2"> Analytics</li>
+        </a>
+        <a href="/vf/blacklisted-user" class="offset-list-item-link">
+            <li><img src="/vf/icons/blacklist.png" height="24" class="ps-3 pe-2"> Blacklist</li>
+        </a>
+        <a href="/vf/offline-approval-by-vc" class="offset-list-item-link">
+            <li><img src="/vf/icons/business-report.png" height="24" class="ps-3 pe-2"> Offline approval by VC</li>
+        </a>
+        <a href="/vf/created-offer-letter-admin" class="offset-list-item-link">
+            <li><img src="/vf/icons/offerLetter.png" height="24" class="ps-3 pe-2">Generated Offer Letter</li>
+        </a>
+        <a href="/vf/change-password" class="offset-list-item-link">
+            <li><img src="/vf/icons/password-icon.png" height="24" class="ps-3 pe-2">Change Password</li>
+        </a>
+        <a href="/vf/logout" class="offset-list-item-link">
+            <li><img src="/vf/icons/logout.png" class="ps-3 pe-2"> Logout</li>
+        </a>`;
+  } else {
+    list += `
+        <a href="/vf/dashboard" class="offset-list-item-link">
+            <li><img src="/vf/icons/speedometer.png" class="ps-3 pe-2"> Dashboard</li>
+        </a>
+        <a href="/vf/visiting-faculty-applications" id="resume-call" class="offset-list-item-link">
+            <li><img src="/vf/icons/programs.png" class="ps-3 pe-2"> Resume</li>
+        </a>
+        <a href="/vf/proforma" class="offset-list-item-link">
+            <li><img src="/vf/icons/pending_report.png" height="24" class="ps-3 pe-2"> Proforma For Approval</li>
+        </a>
+        <a href="/vf/proforma-report" class="offset-list-item-link">
+            <li><img src="/vf/icons/sidebar-icon.png" height="24" class="ps-3 pe-2"> Proforma Report</li>
+        </a>
+        <a href="/vf/analytics" class="offset-list-item-link">
+            <li><img src="/vf/icons/analytics.png" height="24" class="ps-3 pe-2"> Analytics</li>
+        </a>
+        <a href="/vf/blacklisted-user" class="offset-list-item-link">
+            <li><img src="/vf/icons/blacklist.png" height="24" class="ps-3 pe-2"> Blacklist</li>
+        </a>
+        <a href="/vf/change-password" class="offset-list-item-link">
+            <li><img src="/vf/icons/password-icon.png" height="24" class="ps-3 pe-2">Change Password</li>
+        </a>
+        <a href="/vf/logout" class="offset-list-item-link">
+            <li><img src="/vf/icons/logout.png" class="ps-3 pe-2"> Logout</li>
+        </a>`;
+  }
+
+  document.getElementById("left-sidebar-accordion").innerHTML = list;
+
+  document.getElementById("left-sidebar-accordion").querySelectorAll('a').forEach(el => {
+    if(el.href.split('/').pop() === window.location.href.split('/').pop()) {
+        el.querySelector('li').classList.add('active-sidebar')
+    }
+  })
+  
+  $(document).on("click", ".faculty-view-resume-icon", function (e) {
+    $("#view-resume-modal").modal("toggle");
+    let tr = $(this).closest("tr");
+    let id = tr.data("userlid");
+    $.ajax({
+      url: "/vf/get-resume-by-user?user_id=296",
+      type: "POST",
+      success: function (response) {
+        let data = JSON.parse(response.value);
+
+        console.log("data received::Sidebar:::::::::::>>", "ROLE_ADMIN");
+
+        if (data.resume_details != null) {
+          let tableToAppend = `
+            <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Resume Name</th>
+                    <th>Resume Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>`;
+          for (let obj of data.resume_details) {
+            tableToAppend += `
+                <tr>
+                    <td>${obj.name}</td>
+                    <td class="user_id">${obj.description}</td>
+                    <td>
+                        <a href="/vf/view-resume?resume_lid=${obj.id}" class="application-preview" style="border:none; outline:none; text-decoration: none" >
+                            <svg xmlns="http://www.w3.org/2000/svg" style="max-width:25px; max-height:30px;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </a>`
+
+                if("ROLE_ADMIN" == "ROLE_ADMIN" || "ROLE_ADMIN" == "User"){
+                    tableToAppend +=  `<a href="/vf/resume?resume_lid=${obj.id}" class="application-preview" style="border:none; outline:none; text-decoration: none" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="max-width:25px; max-height:30px;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                            </svg>
+                                        </a>`
+                }
+
+            tableToAppend +=       `</td>
+                                </tr>`;
+          }
+
+          tableToAppend += `  </tbody>
+                         </table>
+                    </div>
+       `;
+          document.querySelector(".modal2-body").innerHTML = "";
+          $(".modal2-body").html(tableToAppend);
+        } else {
+          $(".modal2-body").html('<h4 class="text-center">No Data Found </h4>');
+        }
+      },
+      error: function (error) {
+        console.log("error", error);
+      },
+    });
+  });
+
+  $(document).on("click", ".modal2-cancel-button", function () {
+    $("#view-resume-modal").modal("toggle");
+  });
+</script>
+
+
+    <main class="main">
+        <header>
+    <nav class="top-navbar d-flex justify-content-xl-end justify-content-between align-items-center">
+        <a href="/vf/dashboard"><img src="/vf/image/logo-nmims.png" alt="NMIMS LOGO"
+                class="nmims-logo-smalldevices me-auto"></a>
+        <div class="navbar-logo d-none me-auto">
+            <a href="/vf/dashboard"> <img src="/vf/image/logo-nmims.png" class="nmims-logo"> </a>
+        </div>
+        <button class="me-auto left-sidebar-toggle"
+            style="border: none; outline: none; background-color: white;"><i
+                class="fa-solid fa-angles-left"></i></button>
+        <ul class="top-navbar__list">
+         
+            <li style="color: #fc6964;"><img src="/vf/icons/admin.png" class="ps-3 pe-2">&nbsp;32200193_ADMIN
+            </li>
+
+            <li><a href="" class="d-none text-dark"><img src="/vf/icons/notification.png" alt=""> Notification</a></li>
+
+            <div class="btn-group">
+                <button class="btn btn-white dropdown-toggle" type="button" id="defaultDropdown"
+                    data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                    <img src="/vf/icons/user.png" alt=""> Hi! ADMIN
+                </button>
+                <ul class="dropdown-menu userprofile-dropdown-menu" aria-labelledby="defaultDropdown">
+                    <li><a class="dropdown-item" href="/vf/change-password"><i class="fas fa-user-cog"></i>Change Password</a></li>
+                    <li><a class="d-none dropdown-item" href="#"><i class="fas fa-user-circle"></i> Manage account</a>
+                    </li>
+                    <li><a class="dropdown-item" href="/vf/logout"><i class="fas fa-sign-out-alt"></i></i>
+                            Signout</a></li>
+                </ul>
+            </div>
+        </ul>
+        <div class="hamburger-smalldevices"><img src="/vf/icons/HamburgerIcon.png" alt="" width="24px"
+                height="20px">
+        </div>
+    </nav>
+</header>
+<main class="main">
+    <header>
+<nav class="top-navbar d-flex justify-content-xl-end justify-content-between align-items-center">
+    <a href="/vf/dashboard"><img src="/vf/image/logo-nmims.png" alt="NMIMS LOGO" class="nmims-logo-smalldevices me-auto"></a>
+    <div class="navbar-logo d-none me-auto">
+        <a href="/vf/dashboard"> <img src="/vf/image/logo-nmims.png" class="nmims-logo"> </a>
+    </div>
+    <button class="me-auto left-sidebar-toggle" style="border: none; outline: none; background-color: white;"><i class="fa-solid fa-angles-left"></i></button>
+    <ul class="top-navbar__list">
+     
+        <li style="color: #fc6964;"><img src="/vf/icons/admin.png" class="ps-3 pe-2">&nbsp;32200193_ADMIN
+        </li>
+
+        <li><a href="" class="d-none text-dark"><img src="/vf/icons/notification.png" alt=""> Notification</a></li>
+
+        <div class="btn-group">
+            <button class="btn btn-white dropdown-toggle" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                <img src="/vf/icons/user.png" alt=""> Hi! ADMIN
+            </button>
+            <ul class="dropdown-menu userprofile-dropdown-menu" aria-labelledby="defaultDropdown">
+                <li><a class="dropdown-item" href="/vf/change-password"><i class="fas fa-user-cog"></i>Change Password</a></li>
+                <li><a class="d-none dropdown-item" href="#"><i class="fas fa-user-circle"></i> Manage account</a>
+                </li>
+                <li><a class="dropdown-item" href="/vf/logout"><i class="fas fa-sign-out-alt"></i>
+                        Signout</a></li>
+            </ul>
+        </div>
+    </ul>
+    <div class="hamburger-smalldevices"><img src="/vf/icons/HamburgerIcon.png" alt="" width="24px" height="20px">
+    </div>
+</nav>
+</header>
+    <section class="main-content">
+            <div>
+                <select class="select select2 form-control select2-hidden-accessible" id="school-select" multiple="" tabindex="-1" aria-hidden="true">
+                    <option selected="" value="0"> All schools</option>
+                    
+                        
+                            <option value="00004534"> Sarla Anil Modi School of Economics</option>
+                        
+                    
+                </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 1582px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title=" All schools"><span class="select2-selection__choice__remove" role="presentation">×</span> All schools</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+            </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-white text-center">
+                        <h5>Total Application: 
+                            <span id="application-count">2861</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="application-chart" style="min-height: 239.7px;"><div id="apexchartsorrwspo6" class="apexcharts-canvas apexchartsorrwspo6 apexcharts-theme-light" style="width: 380px; height: 239.7px;"><svg id="SvgjsSvg1299" width="380" height="239.70000000000002" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><foreignObject x="0" y="0" width="380" height="239.70000000000002"><div class="apexcharts-legend apexcharts-align-center apx-legend-position-right" xmlns="http://www.w3.org/1999/xhtml" style="position: absolute; left: auto; top: 24px; right: 5px;"><div class="apexcharts-legend-series" rel="1" seriesname="Pending" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="1" data:collapsed="false" style="background: rgb(255, 200, 0) !important; color: rgb(255, 200, 0); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="1" i="0" data:default-text="Pending" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Pending</span></div><div class="apexcharts-legend-series" rel="2" seriesname="Approvedxbrxbyxfaculty" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="2" data:collapsed="false" style="background: rgb(215, 0, 0) !important; color: rgb(215, 0, 0); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="2" i="1" data:default-text="Approved%3Cbr%3Eby%20faculty" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Approved<br>by faculty</span></div><div class="apexcharts-legend-series" rel="3" seriesname="ProformaxxbrxCreated" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="3" data:collapsed="false" style="background: rgb(52, 187, 52) !important; color: rgb(52, 187, 52); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="3" i="2" data:default-text="Proforma%20%3Cbr%3ECreated" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Proforma <br>Created</span></div></div><style type="text/css">	
+    
+  .apexcharts-legend {	
+    display: flex;	
+    overflow: auto;	
+    padding: 0 10px;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom, .apexcharts-legend.apx-legend-position-top {	
+    flex-wrap: wrap	
+  }	
+  .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+    flex-direction: column;	
+    bottom: 0;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+    justify-content: flex-start;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-center, .apexcharts-legend.apx-legend-position-top.apexcharts-align-center {	
+    justify-content: center;  	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-right, .apexcharts-legend.apx-legend-position-top.apexcharts-align-right {	
+    justify-content: flex-end;	
+  }	
+  .apexcharts-legend-series {	
+    cursor: pointer;	
+    line-height: normal;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom .apexcharts-legend-series, .apexcharts-legend.apx-legend-position-top .apexcharts-legend-series{	
+    display: flex;	
+    align-items: center;	
+  }	
+  .apexcharts-legend-text {	
+    position: relative;	
+    font-size: 14px;	
+  }	
+  .apexcharts-legend-text *, .apexcharts-legend-marker * {	
+    pointer-events: none;	
+  }	
+  .apexcharts-legend-marker {	
+    position: relative;	
+    display: inline-block;	
+    cursor: pointer;	
+    margin-right: 3px;	
+    border-style: solid;
+  }	
+      
+  .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series, .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{	
+    display: inline-block;	
+  }	
+  .apexcharts-legend-series.apexcharts-no-click {	
+    cursor: auto;	
+  }	
+  .apexcharts-legend .apexcharts-hidden-zero-series, .apexcharts-legend .apexcharts-hidden-null-series {	
+    display: none !important;	
+  }	
+  .apexcharts-inactive-legend {	
+    opacity: 0.45;	
+  }</style></foreignObject><g id="SvgjsG1301" class="apexcharts-inner apexcharts-graphical" transform="translate(22, 0)"><defs id="SvgjsDefs1300"><clipPath id="gridRectMaskorrwspo6"><rect id="SvgjsRect1302" width="243" height="271" x="-4" y="-6" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMaskorrwspo6"></clipPath><clipPath id="nonForecastMaskorrwspo6"></clipPath><clipPath id="gridRectMarkerMaskorrwspo6"><rect id="SvgjsRect1303" width="241" height="263" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><filter id="SvgjsFilter1311" filterUnits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feFlood id="SvgjsFeFlood1312" flood-color="#000000" flood-opacity="0.45" result="SvgjsFeFlood1312Out" in="SourceGraphic"></feFlood><feComposite id="SvgjsFeComposite1313" in="SvgjsFeFlood1312Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1313Out"></feComposite><feOffset id="SvgjsFeOffset1314" dx="1" dy="1" result="SvgjsFeOffset1314Out" in="SvgjsFeComposite1313Out"></feOffset><feGaussianBlur id="SvgjsFeGaussianBlur1315" stdDeviation="1 " result="SvgjsFeGaussianBlur1315Out" in="SvgjsFeOffset1314Out"></feGaussianBlur><feMerge id="SvgjsFeMerge1316" result="SvgjsFeMerge1316Out" in="SourceGraphic"><feMergeNode id="SvgjsFeMergeNode1317" in="SvgjsFeGaussianBlur1315Out"></feMergeNode><feMergeNode id="SvgjsFeMergeNode1318" in="[object Arguments]"></feMergeNode></feMerge><feBlend id="SvgjsFeBlend1319" in="SourceGraphic" in2="SvgjsFeMerge1316Out" mode="normal" result="SvgjsFeBlend1319Out"></feBlend></filter><filter id="SvgjsFilter1324" filterUnits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feFlood id="SvgjsFeFlood1325" flood-color="#000000" flood-opacity="0.45" result="SvgjsFeFlood1325Out" in="SourceGraphic"></feFlood><feComposite id="SvgjsFeComposite1326" in="SvgjsFeFlood1325Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1326Out"></feComposite><feOffset id="SvgjsFeOffset1327" dx="1" dy="1" result="SvgjsFeOffset1327Out" in="SvgjsFeComposite1326Out"></feOffset><feGaussianBlur id="SvgjsFeGaussianBlur1328" stdDeviation="1 " result="SvgjsFeGaussianBlur1328Out" in="SvgjsFeOffset1327Out"></feGaussianBlur><feMerge id="SvgjsFeMerge1329" result="SvgjsFeMerge1329Out" in="SourceGraphic"><feMergeNode id="SvgjsFeMergeNode1330" in="SvgjsFeGaussianBlur1328Out"></feMergeNode><feMergeNode id="SvgjsFeMergeNode1331" in="[object Arguments]"></feMergeNode></feMerge><feBlend id="SvgjsFeBlend1332" in="SourceGraphic" in2="SvgjsFeMerge1329Out" mode="normal" result="SvgjsFeBlend1332Out"></feBlend></filter><filter id="SvgjsFilter1337" filterUnits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feFlood id="SvgjsFeFlood1338" flood-color="#000000" flood-opacity="0.45" result="SvgjsFeFlood1338Out" in="SourceGraphic"></feFlood><feComposite id="SvgjsFeComposite1339" in="SvgjsFeFlood1338Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1339Out"></feComposite><feOffset id="SvgjsFeOffset1340" dx="1" dy="1" result="SvgjsFeOffset1340Out" in="SvgjsFeComposite1339Out"></feOffset><feGaussianBlur id="SvgjsFeGaussianBlur1341" stdDeviation="1 " result="SvgjsFeGaussianBlur1341Out" in="SvgjsFeOffset1340Out"></feGaussianBlur><feMerge id="SvgjsFeMerge1342" result="SvgjsFeMerge1342Out" in="SourceGraphic"><feMergeNode id="SvgjsFeMergeNode1343" in="SvgjsFeGaussianBlur1341Out"></feMergeNode><feMergeNode id="SvgjsFeMergeNode1344" in="[object Arguments]"></feMergeNode></feMerge><feBlend id="SvgjsFeBlend1345" in="SourceGraphic" in2="SvgjsFeMerge1342Out" mode="normal" result="SvgjsFeBlend1345Out"></feBlend></filter></defs><g id="SvgjsG1304" class="apexcharts-pie"><g id="SvgjsG1305" transform="translate(0, 0) scale(1)"><g id="SvgjsG1306" class="apexcharts-slices"><g id="SvgjsG1307" class="apexcharts-series apexcharts-pie-series" seriesName="Pending" rel="1" data:realIndex="0"><path id="SvgjsPath1308" d="M 118.5 8.89024390243901 A 109.60975609756099 109.60975609756099 0 0 1 203.02630807082977 48.717467259478255 L 118.5 118.5 L 118.5 8.89024390243901" fill="rgba(255,200,0,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-pie-slice-0" index="0" j="0" data:angle="50.45788185948969" data:startAngle="0" data:strokeWidth="2" data:value="401" data:pathOrig="M 118.5 8.89024390243901 A 109.60975609756099 109.60975609756099 0 0 1 203.02630807082977 48.717467259478255 L 118.5 118.5 L 118.5 8.89024390243901" stroke="#ffffff"></path></g><g id="SvgjsG1320" class="apexcharts-series apexcharts-pie-series" seriesName="Approvedxbrxbyxfaculty" rel="2" data:realIndex="1"><path id="SvgjsPath1321" d="M 203.02630807082977 48.717467259478255 A 109.60975609756099 109.60975609756099 0 0 1 194.08922368016192 197.8761166548053 L 118.5 118.5 L 203.02630807082977 48.717467259478255" fill="rgba(215,0,0,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-pie-slice-1" index="0" j="1" data:angle="85.94197832925552" data:startAngle="50.45788185948969" data:strokeWidth="2" data:value="683" data:pathOrig="M 203.02630807082977 48.717467259478255 A 109.60975609756099 109.60975609756099 0 0 1 194.08922368016192 197.8761166548053 L 118.5 118.5 L 203.02630807082977 48.717467259478255" stroke="#ffffff"></path></g><g id="SvgjsG1333" class="apexcharts-series apexcharts-pie-series" seriesName="ProformaxxbrxCreated" rel="3" data:realIndex="2"><path id="SvgjsPath1334" d="M 194.08922368016192 197.8761166548053 A 109.60975609756099 109.60975609756099 0 1 1 118.480869488735 8.890245571891057 L 118.5 118.5 L 194.08922368016192 197.8761166548053" fill="rgba(52,187,52,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-pie-slice-2" index="0" j="2" data:angle="223.6001398112548" data:startAngle="136.3998601887452" data:strokeWidth="2" data:value="1777" data:pathOrig="M 194.08922368016192 197.8761166548053 A 109.60975609756099 109.60975609756099 0 1 1 118.480869488735 8.890245571891057 L 118.5 118.5 L 194.08922368016192 197.8761166548053" stroke="#ffffff"></path></g><g id="SvgjsG1309" class="apexcharts-datalabels"><text id="SvgjsText1310" font-family="Helvetica, Arial, sans-serif" x="155.8757236214446" y="39.17657087528208" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="600" fill="#ffffff" class="apexcharts-text apexcharts-pie-label" filter="url(#SvgjsFilter1311)" style="font-family: Helvetica, Arial, sans-serif;">14.0%</text></g><g id="SvgjsG1322" class="apexcharts-datalabels"><text id="SvgjsText1323" font-family="Helvetica, Arial, sans-serif" x="206.03082766416952" y="123.74455267455777" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="600" fill="#ffffff" class="apexcharts-text apexcharts-pie-label" filter="url(#SvgjsFilter1324)" style="font-family: Helvetica, Arial, sans-serif;">23.9%</text></g><g id="SvgjsG1335" class="apexcharts-datalabels"><text id="SvgjsText1336" font-family="Helvetica, Arial, sans-serif" x="37.08315571181292" y="151.06452963707378" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="600" fill="#ffffff" class="apexcharts-text apexcharts-pie-label" filter="url(#SvgjsFilter1337)" style="font-family: Helvetica, Arial, sans-serif;">62.1%</text></g></g></g></g><line id="SvgjsLine1346" x1="0" y1="0" x2="237" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1347" x1="0" y1="0" x2="237" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g></svg><div class="apexcharts-tooltip apexcharts-theme-dark"><div class="apexcharts-tooltip-series-group" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(255, 200, 0);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 2;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(215, 0, 0);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 3;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(52, 187, 52);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-white text-center">
+                        <h5>Total Proforma
+                            <span id="proforma-count">3460</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="proforma-chart" style="min-height: 239.7px;"><div id="apexcharts35ydmyx" class="apexcharts-canvas apexcharts35ydmyx apexcharts-theme-light" style="width: 380px; height: 239.7px;"><svg id="SvgjsSvg1348" width="380" height="239.70000000000002" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><foreignObject x="0" y="0" width="380" height="239.70000000000002"><div class="apexcharts-legend apexcharts-align-center apx-legend-position-right" xmlns="http://www.w3.org/1999/xhtml" style="position: absolute; left: auto; top: 24px; right: 5px;"><div class="apexcharts-legend-series" rel="1" seriesname="Approved" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="1" data:collapsed="false" style="background: rgb(52, 187, 52) !important; color: rgb(52, 187, 52); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="1" i="0" data:default-text="Approved" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Approved</span></div><div class="apexcharts-legend-series" rel="2" seriesname="Pending" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="2" data:collapsed="false" style="background: rgb(255, 200, 0) !important; color: rgb(255, 200, 0); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="2" i="1" data:default-text="Pending" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Pending</span></div><div class="apexcharts-legend-series" rel="3" seriesname="Rejected" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="3" data:collapsed="false" style="background: rgb(215, 0, 0) !important; color: rgb(215, 0, 0); height: 12px; width: 12px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="3" i="2" data:default-text="Rejected" data:collapsed="false" style="color: rgb(55, 61, 63); font-size: 12px; font-weight: 400; font-family: Helvetica, Arial, sans-serif;">Rejected</span></div></div><style type="text/css">	
+    
+  .apexcharts-legend {	
+    display: flex;	
+    overflow: auto;	
+    padding: 0 10px;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom, .apexcharts-legend.apx-legend-position-top {	
+    flex-wrap: wrap	
+  }	
+  .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+    flex-direction: column;	
+    bottom: 0;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+    justify-content: flex-start;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-center, .apexcharts-legend.apx-legend-position-top.apexcharts-align-center {	
+    justify-content: center;  	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-right, .apexcharts-legend.apx-legend-position-top.apexcharts-align-right {	
+    justify-content: flex-end;	
+  }	
+  .apexcharts-legend-series {	
+    cursor: pointer;	
+    line-height: normal;	
+  }	
+  .apexcharts-legend.apx-legend-position-bottom .apexcharts-legend-series, .apexcharts-legend.apx-legend-position-top .apexcharts-legend-series{	
+    display: flex;	
+    align-items: center;	
+  }	
+  .apexcharts-legend-text {	
+    position: relative;	
+    font-size: 14px;	
+  }	
+  .apexcharts-legend-text *, .apexcharts-legend-marker * {	
+    pointer-events: none;	
+  }	
+  .apexcharts-legend-marker {	
+    position: relative;	
+    display: inline-block;	
+    cursor: pointer;	
+    margin-right: 3px;	
+    border-style: solid;
+  }	
+      
+  .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series, .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{	
+    display: inline-block;	
+  }	
+  .apexcharts-legend-series.apexcharts-no-click {	
+    cursor: auto;	
+  }	
+  .apexcharts-legend .apexcharts-hidden-zero-series, .apexcharts-legend .apexcharts-hidden-null-series {	
+    display: none !important;	
+  }	
+  .apexcharts-inactive-legend {	
+    opacity: 0.45;	
+  }</style></foreignObject><g id="SvgjsG1350" class="apexcharts-inner apexcharts-graphical" transform="translate(22, 0)"><defs id="SvgjsDefs1349"><clipPath id="gridRectMask35ydmyx"><rect id="SvgjsRect1351" width="243" height="271" x="-4" y="-6" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMask35ydmyx"></clipPath><clipPath id="nonForecastMask35ydmyx"></clipPath><clipPath id="gridRectMarkerMask35ydmyx"><rect id="SvgjsRect1352" width="241" height="263" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><filter id="SvgjsFilter1360" filterUnits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feFlood id="SvgjsFeFlood1361" flood-color="#000000" flood-opacity="0.45" result="SvgjsFeFlood1361Out" in="SourceGraphic"></feFlood><feComposite id="SvgjsFeComposite1362" in="SvgjsFeFlood1361Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1362Out"></feComposite><feOffset id="SvgjsFeOffset1363" dx="1" dy="1" result="SvgjsFeOffset1363Out" in="SvgjsFeComposite1362Out"></feOffset><feGaussianBlur id="SvgjsFeGaussianBlur1364" stdDeviation="1 " result="SvgjsFeGaussianBlur1364Out" in="SvgjsFeOffset1363Out"></feGaussianBlur><feMerge id="SvgjsFeMerge1365" result="SvgjsFeMerge1365Out" in="SourceGraphic"><feMergeNode id="SvgjsFeMergeNode1366" in="SvgjsFeGaussianBlur1364Out"></feMergeNode><feMergeNode id="SvgjsFeMergeNode1367" in="[object Arguments]"></feMergeNode></feMerge><feBlend id="SvgjsFeBlend1368" in="SourceGraphic" in2="SvgjsFeMerge1365Out" mode="normal" result="SvgjsFeBlend1368Out"></feBlend></filter><filter id="SvgjsFilter1373" filterUnits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feFlood id="SvgjsFeFlood1374" flood-color="#000000" flood-opacity="0.45" result="SvgjsFeFlood1374Out" in="SourceGraphic"></feFlood><feComposite id="SvgjsFeComposite1375" in="SvgjsFeFlood1374Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1375Out"></feComposite><feOffset id="SvgjsFeOffset1376" dx="1" dy="1" result="SvgjsFeOffset1376Out" in="SvgjsFeComposite1375Out"></feOffset><feGaussianBlur id="SvgjsFeGaussianBlur1377" stdDeviation="1 " result="SvgjsFeGaussianBlur1377Out" in="SvgjsFeOffset1376Out"></feGaussianBlur><feMerge id="SvgjsFeMerge1378" result="SvgjsFeMerge1378Out" in="SourceGraphic"><feMergeNode id="SvgjsFeMergeNode1379" in="SvgjsFeGaussianBlur1377Out"></feMergeNode><feMergeNode id="SvgjsFeMergeNode1380" in="[object Arguments]"></feMergeNode></feMerge><feBlend id="SvgjsFeBlend1381" in="SourceGraphic" in2="SvgjsFeMerge1378Out" mode="normal" result="SvgjsFeBlend1381Out"></feBlend></filter><filter id="SvgjsFilter1386" filterUnits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feFlood id="SvgjsFeFlood1387" flood-color="#000000" flood-opacity="0.45" result="SvgjsFeFlood1387Out" in="SourceGraphic"></feFlood><feComposite id="SvgjsFeComposite1388" in="SvgjsFeFlood1387Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1388Out"></feComposite><feOffset id="SvgjsFeOffset1389" dx="1" dy="1" result="SvgjsFeOffset1389Out" in="SvgjsFeComposite1388Out"></feOffset><feGaussianBlur id="SvgjsFeGaussianBlur1390" stdDeviation="1 " result="SvgjsFeGaussianBlur1390Out" in="SvgjsFeOffset1389Out"></feGaussianBlur><feMerge id="SvgjsFeMerge1391" result="SvgjsFeMerge1391Out" in="SourceGraphic"><feMergeNode id="SvgjsFeMergeNode1392" in="SvgjsFeGaussianBlur1390Out"></feMergeNode><feMergeNode id="SvgjsFeMergeNode1393" in="[object Arguments]"></feMergeNode></feMerge><feBlend id="SvgjsFeBlend1394" in="SourceGraphic" in2="SvgjsFeMerge1391Out" mode="normal" result="SvgjsFeBlend1394Out"></feBlend></filter></defs><g id="SvgjsG1353" class="apexcharts-pie"><g id="SvgjsG1354" transform="translate(0, 0) scale(1)"><g id="SvgjsG1355" class="apexcharts-slices"><g id="SvgjsG1356" class="apexcharts-series apexcharts-pie-series" seriesName="Approved" rel="1" data:realIndex="0"><path id="SvgjsPath1357" d="M 118.5 8.89024390243901 A 109.60975609756099 109.60975609756099 0 1 1 19.39003176079281 71.68640339185472 L 118.5 118.5 L 118.5 8.89024390243901" fill="rgba(52,187,52,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-pie-slice-0" index="0" j="0" data:angle="295.28323699421964" data:startAngle="0" data:strokeWidth="2" data:value="2838" data:pathOrig="M 118.5 8.89024390243901 A 109.60975609756099 109.60975609756099 0 1 1 19.39003176079281 71.68640339185472 L 118.5 118.5 L 118.5 8.89024390243901" stroke="#ffffff"></path></g><g id="SvgjsG1369" class="apexcharts-series apexcharts-pie-series" seriesName="Pending" rel="2" data:realIndex="1"><path id="SvgjsPath1370" d="M 19.39003176079281 71.68640339185472 A 109.60975609756099 109.60975609756099 0 0 1 74.58541613940392 18.07187666735237 L 118.5 118.5 L 19.39003176079281 71.68640339185472" fill="rgba(255,200,0,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-pie-slice-1" index="0" j="1" data:angle="41.09826589595377" data:startAngle="295.28323699421964" data:strokeWidth="2" data:value="395" data:pathOrig="M 19.39003176079281 71.68640339185472 A 109.60975609756099 109.60975609756099 0 0 1 74.58541613940392 18.07187666735237 L 118.5 118.5 L 19.39003176079281 71.68640339185472" stroke="#ffffff"></path></g><g id="SvgjsG1382" class="apexcharts-series apexcharts-pie-series" seriesName="Rejected" rel="3" data:realIndex="2"><path id="SvgjsPath1383" d="M 74.58541613940392 18.07187666735237 A 109.60975609756099 109.60975609756099 0 0 1 118.480869488735 8.890245571891057 L 118.5 118.5 L 74.58541613940392 18.07187666735237" fill="rgba(215,0,0,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-pie-slice-2" index="0" j="2" data:angle="23.618497109826592" data:startAngle="336.3815028901734" data:strokeWidth="2" data:value="227" data:pathOrig="M 74.58541613940392 18.07187666735237 A 109.60975609756099 109.60975609756099 0 0 1 118.480869488735 8.890245571891057 L 118.5 118.5 L 74.58541613940392 18.07187666735237" stroke="#ffffff"></path></g><g id="SvgjsG1358" class="apexcharts-datalabels"><text id="SvgjsText1359" font-family="Helvetica, Arial, sans-serif" x="165.43168388369938" y="192.57137214991545" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="600" fill="#ffffff" class="apexcharts-text apexcharts-pie-label" filter="url(#SvgjsFilter1360)" style="font-family: Helvetica, Arial, sans-serif;">82.0%</text></g><g id="SvgjsG1371" class="apexcharts-datalabels"><text id="SvgjsText1372" font-family="Helvetica, Arial, sans-serif" x="57.40264820240833" y="55.60115479873991" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="600" fill="#ffffff" class="apexcharts-text apexcharts-pie-label" filter="url(#SvgjsFilter1373)" style="font-family: Helvetica, Arial, sans-serif;">11.4%</text></g><g id="SvgjsG1384" class="apexcharts-datalabels"><text id="SvgjsText1385" font-family="Helvetica, Arial, sans-serif" x="100.55433509338117" y="32.66816304313353" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="600" fill="#ffffff" class="apexcharts-text apexcharts-pie-label" filter="url(#SvgjsFilter1386)" style="font-family: Helvetica, Arial, sans-serif;">6.6%</text></g></g></g></g><line id="SvgjsLine1395" x1="0" y1="0" x2="237" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1396" x1="0" y1="0" x2="237" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g></svg><div class="apexcharts-tooltip apexcharts-theme-dark" style="left: 120.625px; top: 77px;"><div class="apexcharts-tooltip-series-group apexcharts-active" style="order: 1; display: flex; background-color: rgb(52, 187, 52);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(52, 187, 52); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Approved: </span><span class="apexcharts-tooltip-text-y-value">2838</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 2; display: none; background-color: rgb(52, 187, 52);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(52, 187, 52); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Approved: </span><span class="apexcharts-tooltip-text-y-value">2838</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 3; display: none; background-color: rgb(52, 187, 52);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(52, 187, 52); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Approved: </span><span class="apexcharts-tooltip-text-y-value">2838</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-3">
+
+                <div class="card h-100">
+                    <div class="card-header bg-white text-center">
+                        <h5>Total Proforma Sent for Revision</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="counter-head" id="revision-chart">830</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-3">
+
+                <div class="card h-100">
+                    <div class="card-header bg-white text-center">
+                        <h5>Total Cost for Approved faculty</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <span class="h3">₹ </span> <span class="counter-head" id="total-cost">250090950</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="card h-100">
+                    <div class="card-header bg-white text-center">
+                        <h5>Over-all Price Chart (in ₹)
+                        </h5>
+                    </div>
+                   
+                </div>
+            </div>
+    </div></section>
+
+</main>
+
+    <div style="z-index: 100000;" class="modal fade" id="proforma-view-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proforma-view-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="proforma-view-modal-label">Proformas</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="proforma-modal-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mis-report" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="program-view-modal"> 
+        <div class="modal-dialog modal-dialog-centered modal-xl" style="max-width:95% !important; min-height: 80vh !important;">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <h3 class="modal-title" id="program-view-modal-label"> Report </h3>
+              <button type="button" class="fa-solid fa-xmark btn btn-danger back-to-campus" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="program-modal-body" style="min-height: 80vh !important;">
+                <div class="mt-4 mx-4">
+                  <div class="row">
+                      <div class="col-12">
+                        Select Program
+                        <select id="program-select" class="form-control select2">
+                          
+                        </select>
+                      </div>
+                  </div>
+      
+                  <div class="program-level-table-div mt-3 mx-4" style="overflow-x: auto;">
+                    <div class="d-flex justify-content-end">
+                      <i class="py-3 fa fa-solid fa-download text-dark" id="download-excel" style="cursor: pointer;" > Export to Excel</i>
+                    </div>
+                    <table id="honarium-table" class="table table-responsive table-striped table-bordered" style="min-width: 1600px;">
+                      <thead class="table-head table-primary text-center">
+                        <tr><td class="d-none" colspan="12" rowspan="1">SVKM's Narsee Monjee Institute of Management Studies (NMIMS)</td></tr>
+                        <tr><td class="d-none" colspan="12" rowspan="1">Proforma for details of visiting faculty for appointment:</td></tr>
+                        <tr></tr>
+                        <tr><td class="d-none" colspan="12" rowspan="1">Name of the School / Campus : &nbsp;&nbsp;<span id="campus-name"></span></td></tr>
+                        <tr><td class="d-none" colspan="12" rowspan="1">Academic Year : <span id="acad-year"></span></td></tr>
+                        <tr></tr>
+                        <tr>
+                          <th>Sr No.</th>
+                          <th>Name of the Faculty </th>
+                          <th>Pancard No.</th>
+                          <th class="d-none">PO No.</th>
+                          <th class="d-none">Qualification and Affiliation</th>
+                          <th class="d-none">Experience Details (Current and Past)</th>
+                          <th class="d-none">No. of Years of experience (Industry+Academics)</th>
+                          <th>Subject Alloted </th>
+                          <th>Subject Teaching hours</th>
+                          <th>Program</th>
+                          <th>Sem / Trim</th>
+                          <th>Rate Per Hour</th>
+                          <th>Total No. of Hours Alloted </th>
+                          <th class="d-none">Total No. of Hours Conducted </th>
+                          <th>No. of Division / Batches</th>
+                          <th>Student Count Per Division</th>
+                          <th class="d-none">Vendor Code</th>
+                          <th>Total Amount (Rs.)</th>
+                          <th class="d-none">Faculty Feedback ( if taught earlier)</th>
+                          <th class="d-none">Remarks (Mention parameters considered to allot the subject as VF's qualification / Experience / Research area )</th>
+                          <th class="d-none">Total subjects alloted in a Term</th>
+                          <th>Subject under AOL / OBE process</th>
+                        </tr>
+                      </thead>
+                      <tbody id="honarium-table-body" >
+
+                      </tbody>
+                      <tfoot class="d-none">
+                        <tr></tr>
+                        <tr>
+                            <th>Date:</th>
+                        </tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr>
+                            <th>Prepared by:</th>
+                            <th></th>
+                            <th>Checked by:</th>
+                            <th></th>
+                            <th>Certified by:</th>
+                            <th></th>
+                            <th>Pro-Vice Chancellor</th>
+                            <th></th>
+                            <th>Pro-Vice Chancellor</th>
+                            <th></th>
+                            <th>Vice Chancellor</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Dy. Registrar / Asst.Registrar</th>
+                            <th></th>
+                            <th> Dean / Director</th>
+                        </tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr>
+                            <th></th>
+                            <th>Verified by:</th>
+                            <th></th>
+                            <th></th>
+                            <th>Forwarded to Accounts Dept. for reference & record</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary back-to-campus" >Close</button>
+            </div>
+          </div>
+        </div>
+    </div>   
+
+    <div class="modal fade" id="proforma-campuswise-view-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proforma-campuswise-view-modal">
+        <div class="modal-dialog modal-dialog-centered modal-xl" style="max-width:95% !important;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="proforma-campuswise-view-modal-label"> Campus data </h5>
+              <button type="button" class="btn-close-1 fa-solid fa-xmark btn btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="proforma-campuswise-modal-body">
+                <section class="main-content-modal">
+                    <div class="row mt-0">
+                        <div class="col-md-6 col-sm-12 mb-3">
+                            <div class="card h-100">
+                                <div class="card-header bg-white text-center">
+                                    <h5>Total Application: 
+                                        <span id="application-count-campuswise">
+                                        </span>
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="application-chart-campuswise"></div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-6 col-sm-12 mb-3">
+                            <div class="card h-100">
+                                <div class="card-header bg-white text-center">
+                                    <h5>Total Proforma
+                                        <span id="proforma-count-campuswise">
+                                        </span>
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="proforma-chart-campuswise"></div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-6 col-sm-12 mb-3">
+        
+                            <div class="card h-100">
+                                <div class="card-header bg-white text-center">
+                                    <h5>Total Proforma Sent for Revision</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="counter-head" id="revision-chart-campuswise"></div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-6 col-sm-12 mb-3">
+        
+                            <div class="card h-100">
+                                <div class="card-header bg-white text-center">
+                                    <h5>Total Cost</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <span class="h3">&#8377; </span> <span class="counter-head" id="total-cost-campuswise"></span>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="card h-100" style="overflow: auto;">
+                                <div class="card-header bg-white text-center">
+                                    <h5>Price Chart (in &#8377;)
+                                    </h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div id="count-chart-campuswise"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn-close-1 btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div style="z-index: 2000000;" class="modal fade" id="comments-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Comments </h5>
+                <button type="button" style="border: none;" class="comments-cancel-button" data-dismiss="modal"
+                    aria-label="Close">
+                    <span class="comments-cancel-button" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="comments-body container">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger comments-cancel-button"
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal-loader d-none" id="main-loader">
+        <svg version="1.1" id="L5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+          y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+          <circle fill="#FF4136" stroke="none" cx="6" cy="50" r="6">
+            <animateTransform attributeName="transform" dur="1s" type="translate" values="0 15 ; 0 -15; 0 15"
+              repeatCount="indefinite" begin="0.1" />
+          </circle>
+          <circle fill="#FF851B" stroke="none" cx="30" cy="50" r="6">
+            <animateTransform attributeName="transform" dur="1s" type="translate" values="0 10 ; 0 -10; 0 10"
+              repeatCount="indefinite" begin="0.2" />
+          </circle>
+          <circle fill="#FFDC00" stroke="none" cx="54" cy="50" r="6">
+            <animateTransform attributeName="transform" dur="1s" type="translate" values="0 5 ; 0 -5; 0 5"
+              repeatCount="indefinite" begin="0.3" />
+          </circle>
+        </svg>
+    </div>
+
+    <script src="/vf/js/jquery.min.js"></script>
+    <script src="/vf/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="/vf/js/script.js"></script>
+    <script src="/vf/js/leftsidebartoggle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    
+
+
+</body>
+
+</html>

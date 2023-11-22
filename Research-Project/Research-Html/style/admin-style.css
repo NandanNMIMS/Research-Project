@@ -45,6 +45,7 @@
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 0;
     border-right: 2px solid rgb(184, 184, 184);
     transition: all 0.5s ease-in-out;
   }
@@ -173,6 +174,7 @@
     .left-sidebar {
       width: 230px;
       height: 50vh;
+      z-index: 1000;
     }
   
     .offset-list {
@@ -1518,4 +1520,8 @@
 .fix-image{
   height: 80px;
   width: 80px;
+}
+
+#hamburger{
+  cursor: pointer;
 }
