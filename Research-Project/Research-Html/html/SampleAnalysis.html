@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap CSS -->
-    <!-- Local Bootstrap CSS -->
-    <link rel="stylesheet" href="../style/bs.md.css">
-
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-
-
-    <link rel="stylesheet" href="../style/admin-style.css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../style/admin-simpleAlert.css" />
-
-    <title>ADMIN-Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="/vf../images.jpg" />
-</head>
-
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Bootstrap CSS -->
+        <!-- Local Bootstrap CSS -->
+        <link rel="stylesheet" href="../style/bs.md.css">
+    
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    
+    
+        <link rel="stylesheet" href="../style/admin-style.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../style/admin-simpleAlert.css" />
+    
+        <title>Chart JS Bar Chart </title> 
+        <link rel="icon" type="image/x-icon" href="/vf../images.jpg" />
+       
+	    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    </head>
 <body>
-    <!-- This is left sidebar  -->
+       <!-- This is left sidebar  -->
 
-    <aside class="left-sidebar" id="openSideBar">
+       <aside class="left-sidebar" id="openSideBar">
         <div class="left-sidebar-logo">
             <a href="#">
                 <img src="../images/logo-nmims.png" class="nmims-logo" />
@@ -32,7 +32,7 @@
             <!-- This is left sidebar content -->
         </div>
         <ul class="offset-list offcanvas-body p-0 sidebar-body" id="left-sidebar-accordion">
-            <a href="#" class="offset-list-item-link ">
+            <a href="../html/dashboard.html" class="offset-list-item-link ">
                 <li class="active-sidebar">
                     <img src="../images/dashboard.png" class="ps-3 pe-2 sidebar-icon"> Dashboard
                 </li>
@@ -199,87 +199,54 @@
             </div>
         </nav>
     </header>
-    <!-- This is right side section -->
     <main class="main" id="mainContent">
-        <div class="main-content">
+        <div class="base-section coustom-section mt-4">
+            <h3 class="text-center mb-5" style="color:green">Sample Analysis</h3>
+            
             <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
-                    <a href="../html/research.html"
-                        class="card_school_vf text-center  d-flex flex-column justify-content-center align-items-center">
-                        <img src="../images/Research.png" alt="" class="fix-image" />
-                        <p>Research</p>
-                    </a>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
-                    <a href="../html/teaching-excellance.html"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center">
-                        <img src="../images/excellence.png" alt="" class="fix-image" />
-                        <p>Teaching Excellence</p>
-                    </a>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
-                    <a href="../html/meeting-stackholders.html"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center ">
-                        <img src="../images/meeting.png" alt="" class="fix-image" />
-                        Meeting Stakeholders
-                    </a>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
-                    <a href="../html/branding-advertising.html"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center ">
-                        <img src="../images/advertising.png" alt="" class="fix-image" />
-                        Branding & Advertising
-                    </a>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
-                    <a href="#"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center ">
-                        <img src="../images/incentive.png" height="55" alt="" class="fix-image" />
-                        Research Incentive Page
-                    </a>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
-                    <a href="#"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center ">
-                        <img src="../images/edition.png" height="55" alt="" class="fix-image" />
-                        Chronicle Edition
-                    </a>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4 ">
-                    <a href="#"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center ">
-                        <img src="../images/sdm-incentive.png" height="80px" alt="" class="fix-image" />
-                        SBM Incentive Policy
-                    </a>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4 ">
-                    <a href="#"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center ">
-                        <img src="../images/policy.png" height="80px" alt="" class="fix-image" />
-                        Other School Incentive Policy
-                    </a>
-                </div>
-
-                <div class="analytics col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
-                    <a href="#"
-                        class="card_school_vf text-center d-flex flex-column justify-content-center align-items-center ">
-                        <img src="../images/analysis.png" height="80px" alt="Analytics" class="fix-image" />
-                        Analytics
-                    </a>
-                </div>
+                <div> 
+                    <div> 
+                        <canvas id="barChartID"></canvas> 
+                    </div> 
+                </div> 
+                
 
             </div>
+
+        </div>        
+
     </main>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../js/script.js"></script>
-</body>
 
+    <script> 
+		// Bar chart 
+		var ctx = document.getElementById('barChartID').getContext('2d');
+		var myChart = new Chart(ctx, { 
+			type: 'bar', 
+			options: { 
+				legend: { display: true }, 
+				indexAxis: 'x', 
+				title: { 
+					display: true, 
+					text: 'Bar Chart using ChartJS library' 
+				} 
+			}, 
+			data: { 
+				labels: ["2019", "2020", "2021", "2022"], 
+				datasets: [ 
+					{ 
+						label: "ABDC Indexed Publications", 
+						backgroundColor: ["#0047ab", "#0047ab", 
+							"#0047ab", "#0047ab"], 
+						data: [30, 65, 75, 119] 
+					} 
+				] 
+			}			 
+		}); 
+    </script>
+</body>
 </html>
